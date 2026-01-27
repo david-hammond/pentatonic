@@ -31,14 +31,19 @@ const CHROMATIC_FLAT = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'B
 
 // Common progressions with descriptions
 const COMMON_PROGRESSIONS = [
+  // Major key progressions
+  { numerals: ['I', 'V', 'vi', 'IV'], name: 'Four Chords', description: "Pop's most famous progression" },
   { numerals: ['I', 'IV', 'V', 'I'], name: 'Classic', description: 'Traditional resolution' },
-  { numerals: ['I', 'V', 'vi', 'IV'], name: 'Pop', description: 'Most popular progression' },
   { numerals: ['I', 'vi', 'IV', 'V'], name: '50s', description: 'Doo-wop progression' },
-  { numerals: ['ii', 'V', 'I'], name: 'Jazz', description: 'Jazz standard cadence' },
-  { numerals: ['I', 'IV', 'vi', 'V'], name: 'Sensitive', description: 'Emotional ballad feel' },
-  { numerals: ['vi', 'IV', 'I', 'V'], name: 'Minor Pop', description: 'Darker pop feel' },
+  { numerals: ['vi', 'IV', 'I', 'V'], name: 'Axis', description: 'Sensitive/emotional rotation' },
   { numerals: ['I', 'V', 'IV', 'I'], name: 'Rock', description: 'Simple rock progression' },
   { numerals: ['I', 'bVII', 'IV', 'I'], name: 'Mixolydian', description: 'Rock/folk borrowed chord' },
+  { numerals: ['ii', 'V', 'I'], name: 'Jazz ii-V-I', description: 'Jazz standard cadence' },
+  // Minor key progressions (using parallel minor)
+  { numerals: ['i', 'bVI', 'bIII', 'bVII'], name: 'Minor Pop', description: 'Minor equivalent of Four Chords' },
+  { numerals: ['i', 'bVII', 'bVI', 'V'], name: 'Andalusian', description: 'Spanish/flamenco descent' },
+  { numerals: ['i', 'bVII', 'bVI', 'bVII'], name: 'Minor Rock', description: 'Minor key rock feel' },
+  { numerals: ['i', 'iv', 'bVII', 'i'], name: 'Minor Blues', description: 'Minor blues feel' },
 ]
 
 function getNoteIndex(note) {
@@ -152,15 +157,36 @@ export function useChordProgression() {
   const applyCommonProgression = useCallback(
     (numerals) => {
       const chords = numerals.map((numeral) => {
-        // Handle borrowed chords like bVII
+        const useFlats = shouldUseFlats(key)
+        const rootIndex = getNoteIndex(key)
+
+        // Handle minor tonic 'i' - parallel minor
+        if (numeral === 'i') {
+          return key + 'm'
+        }
+
+        // Handle minor subdominant 'iv' - parallel minor
+        if (numeral === 'iv') {
+          const noteIndex = rootIndex + 5 // 4th scale degree
+          return getNote(noteIndex, useFlats) + 'm'
+        }
+
+        // Handle borrowed/modal chords like bVII, bVI, bIII
         if (numeral.startsWith('b')) {
           const degree = numeral.slice(1)
           const degreeIndex = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'].indexOf(degree.toUpperCase())
           if (degreeIndex !== -1) {
-            const rootIndex = getNoteIndex(key) + MAJOR_INTERVALS[degreeIndex] - 1
-            return getNote(rootIndex, shouldUseFlats(key))
+            const noteIndex = rootIndex + MAJOR_INTERVALS[degreeIndex] - 1
+            return getNote(noteIndex, useFlats)
           }
         }
+
+        // Handle major V in minor context (harmonic minor dominant)
+        if (numeral === 'V' && numerals.includes('i')) {
+          const noteIndex = rootIndex + 7 // 5th scale degree
+          return getNote(noteIndex, useFlats)
+        }
+
         const found = chordsInKey.find((c) => c.degree.toLowerCase() === numeral.toLowerCase())
         return found ? found.chord : numeral
       })
