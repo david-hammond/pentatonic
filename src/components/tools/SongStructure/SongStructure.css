@@ -25,6 +25,35 @@
   text-align: center;
 }
 
+.mode-selector {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.mode-btn {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 2px solid var(--card-border);
+  border-radius: 20px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 40px;
+}
+
+.mode-btn:hover {
+  border-color: var(--accent-color);
+}
+
+.mode-btn.selected {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
 .intro-text {
   text-align: center;
   color: var(--text-secondary);
@@ -181,6 +210,61 @@
   margin-bottom: 0.25rem;
 }
 
+/* Rhyme Pattern */
+.rhyme-pattern {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pattern-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 8px;
+  color: white;
+}
+
+.letter-a { background-color: #4CAF50; }
+.letter-b { background-color: #2196F3; }
+.letter-c { background-color: #9C27B0; }
+.letter-x { background-color: var(--card-bg); color: var(--text-secondary); border: 2px dashed var(--card-border); }
+
+.rhyme-example {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.rhyme-example h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem 0;
+}
+
+.rhyme-example pre {
+  margin: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  white-space: pre-wrap;
+}
+
+.examples p {
+  margin: 0;
+  color: var(--text-color);
+}
+
 @media (max-width: 480px) {
   .song-structure h1 {
     font-size: 1.75rem;
@@ -200,5 +284,11 @@
 
   .section-item:not(:last-child)::after {
     display: none;
+  }
+
+  .pattern-letter {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
   }
 }

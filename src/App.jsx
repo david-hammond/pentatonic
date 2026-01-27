@@ -9,7 +9,7 @@ const TOOLS = [
   { id: 'object-writing', name: 'Object Writing', icon: '✏️', disabled: false },
   { id: 'word-explorer', name: 'Word Explorer', icon: '🔍', disabled: false },
   { id: 'chords', name: 'Chord Progressions', icon: '🎸', disabled: false },
-  { id: 'song-structure', name: 'Song Structure', icon: '🎵', disabled: false },
+  { id: 'song-structure', name: 'Structures', icon: '🎵', disabled: false },
 ]
 
 function ToolSelector({ onSelectTool }) {
