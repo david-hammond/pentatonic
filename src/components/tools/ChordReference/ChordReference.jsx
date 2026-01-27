@@ -1,0 +1,142 @@
+import { useChordProgression } from '../../../hooks/useChordProgression'
+import './ChordReference.css'
+
+const ALL_KEYS = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'F', 'Bb', 'Eb', 'Ab', 'Db']
+
+export default function ChordReference({ onBack }) {
+  const {
+    key,
+    setKey,
+    progression,
+    chordsInKey,
+    relatedKeys,
+    suggestedNext,
+    commonProgressions,
+    addChord,
+    removeLastChord,
+    clearProgression,
+    applyCommonProgression,
+  } = useChordProgression()
+
+  return (
+    <div className="chord-reference">
+      <button onClick={onBack} className="btn-back" aria-label="Back to home">
+        &larr;
+      </button>
+
+      <div className="content">
+        <h1>Chord Progressions</h1>
+
+        {/* Key Selector */}
+        <div className="section">
+          <h2>Select Key</h2>
+          <div className="key-selector">
+            {ALL_KEYS.map((k) => (
+              <button
+                key={k}
+                onClick={() => setKey(k)}
+                className={`key-btn ${key === k ? 'selected' : ''}`}
+              >
+                {k}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Current Progression */}
+        <div className="section">
+          <h2>Your Progression</h2>
+          <div className="progression-display">
+            {progression.length > 0 ? (
+              <>
+                <div className="progression-chords">
+                  {progression.map((chord, i) => (
+                    <span key={i} className="progression-chord">
+                      {chord}
+                    </span>
+                  ))}
+                </div>
+                <div className="progression-actions">
+                  <button onClick={removeLastChord} className="btn btn-secondary btn-small">
+                    Undo
+                  </button>
+                  <button onClick={clearProgression} className="btn btn-secondary btn-small">
+                    Clear
+                  </button>
+                </div>
+              </>
+            ) : (
+              <p className="empty-progression">Tap chords below to build a progression</p>
+            )}
+          </div>
+        </div>
+
+        {/* Suggested Next Chords */}
+        <div className="section">
+          <h2>Suggested Next</h2>
+          <div className="chord-grid">
+            {suggestedNext.map((chord) => (
+              <button key={chord} onClick={() => addChord(chord)} className="chord-btn suggested">
+                {chord}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Chords in Key */}
+        <div className="section">
+          <h2>Chords in {key} Major</h2>
+          <div className="chords-in-key">
+            {chordsInKey.map((c) => (
+              <button key={c.degree} onClick={() => addChord(c.chord)} className="chord-btn">
+                <span className="chord-name">{c.chord}</span>
+                <span className="chord-degree">{c.degree}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Common Progressions */}
+        <div className="section">
+          <h2>Common Progressions</h2>
+          <div className="common-progressions">
+            {commonProgressions.map((prog) => (
+              <button
+                key={prog.name}
+                onClick={() => applyCommonProgression(prog.numerals)}
+                className="progression-btn"
+              >
+                <span className="prog-name">{prog.name}</span>
+                <span className="prog-numerals">{prog.numerals.join(' - ')}</span>
+                <span className="prog-desc">{prog.description}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Related Keys */}
+        <div className="section">
+          <h2>Related Keys</h2>
+          <div className="related-keys">
+            <button onClick={() => setKey(relatedKeys.dominant)} className="related-key-btn">
+              <span className="relation">Dominant (V)</span>
+              <span className="key-name">{relatedKeys.dominant}</span>
+            </button>
+            <button onClick={() => setKey(relatedKeys.subdominant)} className="related-key-btn">
+              <span className="relation">Subdominant (IV)</span>
+              <span className="key-name">{relatedKeys.subdominant}</span>
+            </button>
+            <div className="related-key-info">
+              <span className="relation">Relative Minor</span>
+              <span className="key-name">{relatedKeys.relativeMinor}</span>
+            </div>
+            <div className="related-key-info">
+              <span className="relation">Parallel Minor</span>
+              <span className="key-name">{relatedKeys.parallelMinor}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

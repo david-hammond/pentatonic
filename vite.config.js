@@ -16,7 +16,7 @@ export default defineConfig({
       manifest: {
         name: 'Pentatonic',
         short_name: 'Pentatonic',
-        description: "A songwriter's toolkit — because I want to hear better songs",
+        description: "A songwriter's toolkit",
         start_url: '/pentatonic/',
         scope: '/pentatonic/',
         display: 'standalone',

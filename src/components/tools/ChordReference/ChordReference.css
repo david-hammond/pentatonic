@@ -1,0 +1,288 @@
+.chord-reference {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  position: relative;
+}
+
+.chord-reference .content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  gap: 1.5rem;
+}
+
+.chord-reference h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.section {
+  width: 100%;
+}
+
+.section h2 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Key Selector */
+.key-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.key-btn {
+  padding: 0.5rem 0.875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid var(--card-border);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.key-btn:hover {
+  border-color: var(--accent-color);
+}
+
+.key-btn.selected {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+/* Progression Display */
+.progression-display {
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.progression-chords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.progression-chord {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.progression-chord:not(:last-child)::after {
+  content: ' → ';
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.progression-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.empty-progression {
+  color: var(--text-secondary);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Chord Grids */
+.chord-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chords-in-key {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 0.5rem;
+}
+
+.chord-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid var(--card-border);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 60px;
+}
+
+.chord-btn:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.chord-btn.suggested {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+.chord-btn.suggested:hover {
+  background-color: var(--accent-hover);
+}
+
+.chord-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.chord-degree {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
+.chord-btn.suggested .chord-degree {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Common Progressions */
+.common-progressions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progression-btn {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--card-border);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.progression-btn:hover {
+  border-color: var(--accent-color);
+}
+
+.prog-name {
+  font-weight: 600;
+  font-size: 1rem;
+  min-width: 80px;
+}
+
+.prog-numerals {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: var(--accent-color);
+}
+
+.prog-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  flex-basis: 100%;
+}
+
+/* Related Keys */
+.related-keys {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.related-key-btn,
+.related-key-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem;
+  border: 2px solid var(--card-border);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+}
+
+.related-key-btn {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.related-key-btn:hover {
+  border-color: var(--accent-color);
+}
+
+.related-key-info {
+  opacity: 0.7;
+}
+
+.relation {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.key-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-top: 0.25rem;
+}
+
+/* Small button variant */
+.btn-small {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 480px) {
+  .chord-reference h1 {
+    font-size: 1.75rem;
+  }
+
+  .chords-in-key {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .progression-chord {
+    font-size: 1.25rem;
+  }
+
+  .prog-name {
+    min-width: auto;
+  }
+
+  .prog-desc {
+    display: none;
+  }
+}

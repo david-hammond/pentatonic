@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import ObjectWriting from './components/tools/ObjectWriting/ObjectWriting'
 import RhymeFinder from './components/tools/RhymeFinder/RhymeFinder'
+import ChordReference from './components/tools/ChordReference/ChordReference'
 import './App.css'
 
 const TOOLS = [
   { id: 'object-writing', name: 'Object Writing', icon: '✏️', disabled: false },
   { id: 'rhyme-finder', name: 'Rhyme Finder', icon: '🔍', disabled: false },
-  { id: 'chords', name: 'Chord Reference', icon: '🎸', disabled: true },
+  { id: 'chords', name: 'Chord Progressions', icon: '🎸', disabled: false },
 ]
 
 function ToolSelector({ onSelectTool }) {
@@ -42,6 +43,7 @@ function App() {
       {currentTool === 'home' && <ToolSelector onSelectTool={setCurrentTool} />}
       {currentTool === 'object-writing' && <ObjectWriting onBack={handleBack} />}
       {currentTool === 'rhyme-finder' && <RhymeFinder onBack={handleBack} />}
+      {currentTool === 'chords' && <ChordReference onBack={handleBack} />}
     </div>
   )
 }
