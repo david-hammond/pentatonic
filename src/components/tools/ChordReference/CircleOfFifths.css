@@ -17,10 +17,10 @@
   cursor: pointer;
   transition: fill 0.2s, opacity 0.2s;
   stroke: var(--card-border);
-  stroke-width: 2;
+  stroke-width: 1.5;
 }
 
-/* Relationship colors */
+/* Outer ring (Major keys) - Relationship colors */
 .segment-path.tonic {
   fill: var(--function-tonic, #4CAF50);
 }
@@ -36,12 +36,29 @@
 .segment-path.dominant-of-dominant,
 .segment-path.subdominant-of-subdominant {
   fill: var(--card-bg);
-  opacity: 0.7;
+}
+
+/* Inner ring (Minor keys) - Darker/muted versions */
+.segment-path.minor-path.tonic {
+  fill: #2E7D32; /* Darker green */
+}
+
+.segment-path.minor-path.dominant {
+  fill: #1565C0; /* Darker blue */
+}
+
+.segment-path.minor-path.subdominant {
+  fill: #E65100; /* Darker orange */
+}
+
+.segment-path.minor-path.dominant-of-dominant,
+.segment-path.minor-path.subdominant-of-subdominant {
+  fill: var(--card-border);
 }
 
 .segment-path.current {
   stroke: var(--text-color);
-  stroke-width: 3;
+  stroke-width: 2.5;
 }
 
 .segment-path:hover,
@@ -52,26 +69,48 @@
 
 .segment-path:focus-visible {
   stroke: var(--text-color);
-  stroke-width: 3;
+  stroke-width: 2.5;
 }
 
+/* Labels */
 .segment-label {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   fill: white;
   pointer-events: none;
   user-select: none;
 }
 
+.segment-label.major-label {
+  font-size: 15px;
+}
+
+.segment-label.minor-label {
+  font-size: 11px;
+  opacity: 0.95;
+}
+
 .segment-label.current {
-  font-size: 18px;
   font-weight: 700;
+}
+
+.segment-label.major-label.current {
+  font-size: 17px;
+}
+
+.segment-label.minor-label.current {
+  font-size: 12px;
 }
 
 /* Make distant keys have darker text */
 .segment-path.dominant-of-dominant + .segment-label,
 .segment-path.subdominant-of-subdominant + .segment-label {
   fill: var(--text-color);
+}
+
+.segment-path.minor-path.dominant-of-dominant + .segment-label,
+.segment-path.minor-path.subdominant-of-subdominant + .segment-label {
+  fill: var(--text-secondary);
 }
 
 /* Legend below the arc */
@@ -93,9 +132,19 @@
 }
 
 .legend-item.current-key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-color);
+}
+
+.legend-item.current-key .relative-minor {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .legend-dot {
