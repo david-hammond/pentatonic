@@ -38,7 +38,7 @@ function ToolSelector({ onSelectTool }) {
 
   return (
     <div className="tool-selector">
-      <h1>Songwriter's Toolkit</h1>
+      <h1>Songwriting Toolkit</h1>
       <p className="tagline">Notebook ready. Instrument tuned. Let's write.</p>
       <div className="tool-grid">
         {TOOLS.map((tool) => (
