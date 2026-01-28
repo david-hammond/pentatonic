@@ -18,8 +18,23 @@ const isInstalled = () => {
     window.navigator.standalone === true // iOS Safari
 }
 
+// Check if on mobile device
+const isMobile = () => {
+  return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+}
+
+// Get install instructions based on platform
+const getInstallInstructions = () => {
+  const ua = navigator.userAgent
+  if (/iPhone|iPad|iPod/i.test(ua)) {
+    return 'tap Share ⬆ then "Add to Home Screen"'
+  }
+  // Android / other
+  return 'tap ⋮ menu then "Add to Home Screen"'
+}
+
 function ToolSelector({ onSelectTool }) {
-  const showInstallHint = !isInstalled()
+  const showInstallHint = isMobile() && !isInstalled()
 
   return (
     <div className="tool-selector">
@@ -61,7 +76,7 @@ function ToolSelector({ onSelectTool }) {
 {showInstallHint && (
           <p className="install-hint">
             <span className="install-icon">📲</span>
-            Mobile Install: tap ⋯ then "Add to Home Screen"
+            Install: {getInstallInstructions()}
           </p>
         )}
       </footer>
