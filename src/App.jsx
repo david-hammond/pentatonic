@@ -12,7 +12,15 @@ const TOOLS = [
   { id: 'song-structure', name: 'Structures', icon: '🎵', disabled: false },
 ]
 
+// Check if app is installed as PWA (standalone mode)
+const isInstalled = () => {
+  return window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true // iOS Safari
+}
+
 function ToolSelector({ onSelectTool }) {
+  const showInstallHint = !isInstalled()
+
   return (
     <div className="tool-selector">
       <h1>Pentatonic</h1>
@@ -33,13 +41,29 @@ function ToolSelector({ onSelectTool }) {
       </div>
       <footer className="app-footer">
         <span>Made by David Hammond</span>
-        <a
-          href="https://github.com/david-hammond/pentatonic"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Feedback welcome on GitHub
-        </a>
+        <div className="footer-links">
+          <a
+            href="https://github.com/david-hammond/pentatonic"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Source Code
+          </a>
+          <span className="separator">·</span>
+          <a
+            href="https://github.com/david-hammond/pentatonic/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Feedback & Issues
+          </a>
+        </div>
+{showInstallHint && (
+          <p className="install-hint">
+            <span className="install-icon">📲</span>
+            Mobile Install: tap ⋯ then "Add to Home Screen"
+          </p>
+        )}
       </footer>
     </div>
   )

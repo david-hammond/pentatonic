@@ -170,8 +170,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
   font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-links .separator {
   color: var(--text-secondary);
 }
 
@@ -182,6 +192,14 @@ body {
 
 .app-footer a:hover {
   text-decoration: underline;
+}
+
+.install-hint {
+  margin: 0.5rem 0 0 0;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--card-bg);
+  border-radius: 6px;
+  font-size: 0.75rem;
 }
 
 @media (max-width: 480px) {

@@ -56,6 +56,40 @@
   margin: 0;
 }
 
+.exercise-summary {
+  text-align: left;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.exercise-summary p {
+  margin: 0 0 0.75rem 0;
+}
+
+.exercise-summary p:last-child {
+  margin-bottom: 0;
+}
+
+.exercise-summary a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-style: italic;
+}
+
+.exercise-summary a:hover {
+  text-decoration: underline;
+}
+
+.exercise-summary .summary-tip {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
 .prompt {
   font-size: 2.5rem;
   font-weight: 600;

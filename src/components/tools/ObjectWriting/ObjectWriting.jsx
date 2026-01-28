@@ -108,9 +108,7 @@ export default function ObjectWriting({ onBack }) {
         </button>
         <div className="content">
           <h1>Object Writing</h1>
-          <p className="description">
-            Write freely using all your senses. Focus on the prompt and let your mind wander.
-          </p>
+
           <div className="duration-selector">
             {DURATION_OPTIONS.map((option) => (
               <button
@@ -125,6 +123,28 @@ export default function ObjectWriting({ onBack }) {
           <button onClick={handleStart} className="btn btn-primary btn-large">
             Start Exercise
           </button>
+
+          <div className="exercise-summary">
+            <p>
+              A daily exercise from Pat Pattison's{' '}
+              <a
+                href="https://www.writersdigest.com/wd-books/writing-better-lyrics"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Writing Better Lyrics
+              </a>
+              .
+            </p>
+            <p>
+              Pick an object and write for 10 minutes using all <strong>seven senses</strong>:
+              sight, sound, smell, taste, touch, body (organic), and motion (kinesthetic).
+            </p>
+            <p className="summary-tip">
+              Don't worry about structure or making it pretty. Just let your thoughts flow
+              and dive deep into your senses.
+            </p>
+          </div>
         </div>
       </div>
     )
