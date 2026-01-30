@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { enableNoSleep, disableNoSleep } from '../utils/nosleep'
 
 export function useObjectWriting(prompts, durationSeconds = 600) {
   const [currentPrompt, setCurrentPrompt] = useState('')
@@ -31,7 +32,10 @@ export function useObjectWriting(prompts, durationSeconds = 600) {
     return newPrompt
   }, [prompts])
 
-  const startExercise = useCallback(() => {
+  const startExercise = useCallback(async () => {
+    // Enable NoSleep IMMEDIATELY during user gesture (button click)
+    await enableNoSleep()
+
     setCurrentPrompt(getRandomPrompt())
     setTimeLeft(durationRef.current)
     setIsRunning(true)
@@ -51,7 +55,7 @@ export function useObjectWriting(prompts, durationSeconds = 600) {
     endTimeRef.current = Date.now() + (durationRef.current * 1000)
   }, [])
 
-  const reset = useCallback(() => {
+  const reset = useCallback(async () => {
     setCurrentPrompt('')
     setTimeLeft(durationRef.current)
     setIsRunning(false)
@@ -60,6 +64,8 @@ export function useObjectWriting(prompts, durationSeconds = 600) {
       clearInterval(timerRef.current)
       timerRef.current = null
     }
+    // Disable NoSleep when timer is reset
+    await disableNoSleep()
   }, [])
 
   // Timer based on timestamps - survives screen lock
@@ -76,6 +82,8 @@ export function useObjectWriting(prompts, durationSeconds = 600) {
           if (timerRef.current) {
             clearInterval(timerRef.current)
           }
+          // Disable NoSleep when timer completes
+          disableNoSleep()
         } else {
           setTimeLeft(remaining)
         }
