@@ -8,6 +8,7 @@ export function useObjectWriting(prompts, durationSeconds = 600) {
   const previousPromptRef = useRef('')
   const timerRef = useRef(null)
   const durationRef = useRef(durationSeconds)
+  const endTimeRef = useRef(null) // Store end timestamp
 
   // Update duration ref when it changes
   useEffect(() => {
@@ -35,6 +36,8 @@ export function useObjectWriting(prompts, durationSeconds = 600) {
     setTimeLeft(durationRef.current)
     setIsRunning(true)
     setIsComplete(false)
+    // Set end time as timestamp
+    endTimeRef.current = Date.now() + (durationRef.current * 1000)
   }, [getRandomPrompt])
 
   const getNewPrompt = useCallback(() => {
@@ -45,6 +48,7 @@ export function useObjectWriting(prompts, durationSeconds = 600) {
     setTimeLeft(durationRef.current)
     setIsComplete(false)
     setIsRunning(true)
+    endTimeRef.current = Date.now() + (durationRef.current * 1000)
   }, [])
 
   const reset = useCallback(() => {
@@ -58,17 +62,23 @@ export function useObjectWriting(prompts, durationSeconds = 600) {
     }
   }, [])
 
+  // Timer based on timestamps - survives screen lock
   useEffect(() => {
-    if (isRunning && timeLeft > 0) {
+    if (isRunning && endTimeRef.current) {
       timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            setIsRunning(false)
-            setIsComplete(true)
-            return 0
+        const now = Date.now()
+        const remaining = Math.ceil((endTimeRef.current - now) / 1000)
+
+        if (remaining <= 0) {
+          setTimeLeft(0)
+          setIsRunning(false)
+          setIsComplete(true)
+          if (timerRef.current) {
+            clearInterval(timerRef.current)
           }
-          return prev - 1
-        })
+        } else {
+          setTimeLeft(remaining)
+        }
       }, 1000)
     }
 
