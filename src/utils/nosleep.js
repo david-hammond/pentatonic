@@ -34,10 +34,9 @@ export async function enableNoSleep() {
     console.log('✅ NoSleep enabled successfully!')
     console.log('- noSleep.isEnabled:', noSleep.isEnabled)
 
-    // Alert on mobile for visibility
-    if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
-      alert('✅ NoSleep enabled! Screen should stay awake.')
-    }
+    // Always show alert for debugging
+    const info = `✅ NoSleep enabled!\n\nwakeLock API: ${'wakeLock' in navigator ? 'YES' : 'NO'}\nHTTPS: ${window.location.protocol === 'https:' ? 'YES' : 'NO'}\nisEnabled: ${noSleep.isEnabled}`
+    alert(info)
 
     return true
   } catch (error) {
@@ -45,10 +44,8 @@ export async function enableNoSleep() {
     console.error('- Error name:', error.name)
     console.error('- Error message:', error.message)
 
-    // Alert error on mobile
-    if (/Android|iPhone|iPad/i.test(navigator.userAgent)) {
-      alert('❌ NoSleep FAILED: ' + error.message)
-    }
+    // Always show error alert
+    alert('❌ NoSleep FAILED!\n\nError: ' + error.message + '\n\nwakeLock API: ' + ('wakeLock' in navigator ? 'YES' : 'NO'))
 
     return false
   }
